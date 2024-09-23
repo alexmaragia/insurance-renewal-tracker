@@ -12,10 +12,10 @@ class Policy(Base):
     end_date = Column(Date, nullable=False)
     premium_amount = Column(Float, nullable=False)
     client_id = Column(Integer, ForeignKey('clients.id'), nullable=False)
+    insurance_company = Column(String)  # New field
     
-    # Establish relationships with Client and Reminder
     client = relationship("Client", back_populates="policies")
     reminders = relationship("Reminder", back_populates="policy")
 
     def __repr__(self):
-        return f"<Policy(id={self.id}, policy_number='{self.policy_number}', type='{self.type}')>"
+        return f"<Policy(id={self.id}, policy_number='{self.policy_number}', type='{self.type}', insurance_company='{self.insurance_company}')>"

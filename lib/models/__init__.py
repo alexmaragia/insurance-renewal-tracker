@@ -1,11 +1,18 @@
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, declarative_base
+from sqlalchemy.orm import sessionmaker
 
-# database engine
+# Create the Base class
+Base = declarative_base()
+
+# Import all models
+from .client import Client
+from .policy import Policy
+from .reminder import Reminder
+
+# Create engine and session
 engine = create_engine('sqlite:///insurance_tracker.db')
-
-# sessionmaker bound to this engine
 Session = sessionmaker(bind=engine)
 
-# base class for declarative class definitions
-Base = declarative_base()
+# This will create all tables
+Base.metadata.create_all(engine)
